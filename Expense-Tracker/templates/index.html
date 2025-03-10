@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Expense Manager</title>
+{% endblock %}
+
+{% block body %}
+
+<h1 style="text-align: center;">Expense Manager</h1>
+
+<div class="main">
+
+    {% if expenses|length < 1 %}
+        <h2 style="text-align: center;">There are no Expenses currently!</h2>
+
+    {% else %}
+        <table>
+            <tr>
+                <th>Amount</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Delete</th>
+                <th>Update</th>
+            </tr>
+            {% for expense in expenses %}
+                <tr>
+                    <td>{{expense.amount}}</td>
+                    <td>{{expense.type}}</td>
+                    <td>{{expense.date_created}}</td>
+                    <td>{{expense.desc}}</td>
+                    <td><a href="/delete/{{expense.id}}">Delete</a></td>
+                    <td><a href="/update/{{expense.id}}">Update</a></td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    {% endif %}
+</div>
+
+<div class="form">
+    <form action="/" method="POST">
+        <input type="number" name="amount" id="amount" placeholder="Enter an amount...">
+        <input type="date" name="date" id="date">
+        <select name="tag" id="tag">
+            <option value="Food">Food</option>
+            <option value="Travel">Travel</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Bills">Bills</option>
+            <option value="Miscellaneous">Miscellaneous</option>
+        </select>
+        <input type="text" name="description" id="description" placeholder="Enter a description...">
+        <input type="submit" name="expense" id="expense" value="Add Expense">
+    </form>
+</div>
+
+<div class="actions">
+    <button><a href="/graphs/monthly">Get Monthly Graphs</a></button>
+    <button><a href=" {{ url_for('download') }} ">Get All Expenses as PDF</a></button>
+</div>
+
+{% endblock %}

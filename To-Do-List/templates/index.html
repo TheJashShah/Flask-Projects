@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>Home</title>
+{% endblock %}
+
+{% block body %}
+
+<h1 style="text-align: center;">To-Do-List</h1>
+
+<div class="content">
+
+    {% if tasks|length < 1 %}
+        <h2 style="text-align: center;">There are no Tasks here. Add Some!</h2>
+
+    {% else %}
+
+        <table>
+            <tr>
+                <th>Task</th>
+                <th>Added</th>
+                <th>Delete</th>
+                <th>Update</th>
+                <th>Change Status</th>
+                <th>Move Up</th>
+                <th>Move Down</th>
+            </tr>
+            {% for task in tasks %}
+                <tr>
+
+                    {% if task.completed == 0 %}
+                        <td>
+                            {{task.text}}
+                        </td>
+                    {% else %}
+                        <td>
+                            <strike>{{task.text}}</strike>
+                        </td>
+                    {% endif %}
+
+                    <td>{{ task.date_created.date() }}</td>
+                    <td>
+                        <a href="/delete/{{task.id}}">Delete</a>
+                    </td>
+                    <td>
+                        <a href="/update/{{task.id}}">Update</a>
+                    </td>
+                    <td>
+                        <a href="/toggle/{{task.id}}">Toggle Complete</a>
+                    </td>
+                    <td>
+                        <a href="/up/{{task.id}}">Move Up</a>
+                    </td>
+                    <td>
+                        <a href="/down/{{task.id}}">Move Down</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    {% endif %}
+
+</div>
+
+<div class="form">
+    <form action="/" method="POST">
+        <input type="text" name="text" id="text">
+        <input type="submit" value="Add Task" id="btn">
+    </form>
+</div>
+
+{% endblock %}
