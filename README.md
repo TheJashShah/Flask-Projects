@@ -7,4 +7,4 @@
  2. Expense-Tracker
   Has options for graphs and downloading expenses as pdf.
 
-[To Run any of these projects, run them as a stand-alon folder, and uncomment the db.create_all line that wil create a instance and a database.]
+[To Run any of these projects, run them as a stand-alone folder, and uncomment the db.create_all line that wil create a instance and a database.]
